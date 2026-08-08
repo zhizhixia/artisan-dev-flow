@@ -1,0 +1,4 @@
+interface:
+  display_name: "Artisan 开发流程"
+  short_description: "复用优先、维护优先、证据驱动的软件开发全生命周期流程"
+  default_prompt: "使用 $artisan-dev-flow 按开发流程推进这个软件任务。"
