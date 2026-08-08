@@ -126,9 +126,24 @@ More input → output examples in [examples/](examples/).
 - Anyone whose projects touch real devices, real accounts, or real data and cannot afford "good enough".
 - Beginners who want to build good habits from day one.
 
-## Relationship to existing methodologies
+## How it compares to other methodologies
 
-Enough does not replace Superpowers, Spec Kit, or Trellis — it sits above them, deciding when to use which capability and when to stop and ask. It plays the role of workflow orchestration and quality gating, not a specific implementation tool.
+Existing AI development methodologies solve problems at different layers. Enough positions itself as "minimal workflow guidance":
+
+| Dimension | **Enough** | Superpowers | OpenSpec / Spec Kit |
+| --- | --- | --- | --- |
+| Install | Copy a folder, 10 seconds | Install plugin + skills library, adapted per tool | npm CLI + spec directory init |
+| Size | 4 files, 300+ lines | Dozens of skills and scripts | CLI tool + spec directory structure |
+| Dependencies | Zero dependencies, zero config | Requires the host tool's plugin mechanism | Requires Node 20+, driven by CLI |
+| Positioning | Workflow orchestration and gates | Full methodology + skill system | Spec-driven development framework |
+| Portability | Plain Markdown, readable by any AI tool | Adapted separately per tool | Tied to the CLI environment |
+| Reuse-first | Hard gate on the first turn, forces open-source evaluation | Not enforced | Not enforced |
+| Light tasks | Fast path, no ceremony for small edits | Has a lightweight path | Still runs the full spec flow |
+| Missing capabilities | Degrades gracefully to a simplified flow | Depends on skills suite completeness | N/A, CLI is a hard dependency |
+
+**Choose Enough when**: you are an individual or small team, work across multiple tools (Codex / Claude Code / OpenCode), want critical gates with minimal ceremony, and especially value "evaluate existing wheels before building".
+
+**Choose the alternatives when**: you need team-level spec management and cross-repo collaboration (OpenSpec / Spec Kit), or want a complete methodology suite out of the box (Superpowers). They don't conflict with Enough — Enough can sit on top of them, adding only workflow orchestration and decision gates.
 
 ## License
 
