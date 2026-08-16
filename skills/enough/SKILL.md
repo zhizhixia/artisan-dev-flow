@@ -1,6 +1,11 @@
 ---
 name: enough
+license: MIT
 description: "Orchestrate a reuse-first, maintainability-first, evidence-driven software development workflow. Use for a new software project/新项目, a non-trivial feature/实现功能, cross-module or cross-system work, risky fixes or refactors, security/privacy/external-write work, important releases, or when the user says 按我的开发流程. Search GitHub before custom building, recommend direct adoption when suitable, require design approval, prove a vertical slice before broad parallelism, and report evidence-backed completion. Do not run the full workflow for explanations, read-only inspection, typo-only documentation, or clearly local low-risk edits."
+metadata:
+  author: zhizhixia
+  version: "0.1.1"
+  tags: agent-skills ai-coding workflow codex claude-code opencode reuse-first
 ---
 
 # Enough 开发流程

@@ -121,6 +121,12 @@ gh skill install zhizhixia/enough enough --agent codex --scope user
 
 `--agent` supports 40+ clients (claude-code, opencode, cursor, gemini-cli, etc.); `--scope user` makes it global. Update later with `gh skill update enough`.
 
+**Universal installer (skills.sh)**:
+
+```bash
+npx skills add zhizhixia/enough --yes
+```
+
 **Manual install (zero dependencies)**: copy the `skills/enough/` folder into your client's skills directory (for Codex: `~/.codex/skills/enough/`, including `SKILL.md`, `references/`, and `agents/`) and restart the client.
 
 **Usage**: say "按我的开发流程推进 XXX" or simply describe a new project, feature, or high-risk fix — Enough triggers automatically.
