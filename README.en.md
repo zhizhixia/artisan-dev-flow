@@ -67,13 +67,13 @@ Not every task needs the full workflow. Enough uses three tracks:
 
 ### Step two: the eight-step workflow
 
-1. **Open-source evaluation** (GitHub reuse gate) — search the ecosystem first and assess whether a mature implementation can be adopted or extended, instead of starting from zero. When a closely matching project exists, recommend adopting it directly.
+1. **Open-source evaluation** (GitHub reuse gate) — search the ecosystem first and assess whether a mature implementation can be adopted or extended, instead of starting from zero. When a closely matching project exists, recommend adopting it directly; reassess the decision when key constraints such as platform or data boundaries change.
 2. **Current-state analysis** (code archaeology) — analyze the structure, data flow, and existing engineering conventions. Suggest a code index (CodeGraph) when useful, only with your consent.
-3. **Design review** (design approval) — define goals, non-goals, acceptance criteria, and module boundaries in a design spec. **No coding until the design passes review.**
+3. **Design review** (design approval) — define goals, non-goals, acceptance criteria, and module boundaries in a design spec. Ask separately only about choices that can change direction; use reasoned defaults for non-blocking details. **No coding until the design passes review.**
 4. **Verification plan** — before coding, define how "works" will be proven: layers and evidence requirements for static checks, automated tests, and real-run verification.
 5. **Minimal vertical slice** — first build one minimal end-to-end path through the real system (e.g., launch → user action → persistence → result display). **No full-scale rollout until the slice passes.**
-6. **Controlled parallelism** — complete core contracts and integration paths serially by default; parallelize only independent tasks, usually at most 2–3 workstreams, integrating after each batch.
-7. **Acceptance and debugging** — verify the main flow first, then boundaries and failure paths; acceptance requires evidence (command output, logs, screenshots). Two consecutive failed fixes on the same path means stop guessing and dig into root cause.
+6. **Controlled implementation** — complete core contracts and integration paths serially by default; split long work into independently verifiable milestones, and parallelize only independent tasks, usually at most 2–3 workstreams. Report status only when completion, blockers, or the next action materially changes.
+7. **Acceptance and debugging** — verify the main flow first, then boundaries and failure paths; re-read or inspect diffs after material writes, reconcile every approved acceptance criterion, and attach evidence. After two failures on one path, distinguish code, environment, permission, and tool failures before trying again.
 8. **Release and learning** — check for sensitive data and temp artifacts, document what is verified vs. unverified and the rollback path; only capture lessons worth reusing.
 
 ### Five gates
@@ -81,7 +81,7 @@ Not every task needs the full workflow. Enough uses three tracks:
 1. No reuse decision → no custom building.
 2. No design approval → no code.
 3. No proven vertical slice → no expanded parallelism.
-4. No acceptance evidence → no "done".
+4. No criterion-by-criterion reconciliation and evidence → no "done".
 5. No security and release check → no shipping.
 
 ### Lines it holds
@@ -97,7 +97,7 @@ Not every task needs the full workflow. Enough uses three tracks:
 | Wasted effort | Mandatory GitHub search before building; recommend adopting existing projects | Step 1 + Gate 1 |
 | Wrong direction found late | Design review before coding; one key question at a time | Step 3 + Gate 2 |
 | Everything at once, nothing works | Prove a minimal vertical slice before controlled parallelism | Steps 5–6 + Gate 3 |
-| Fake tests, fake completion | Demand real-run evidence; distinguish mocks from real verification | Steps 4, 7 + Gate 4 |
+| Fake tests, fake completion | Reconcile every acceptance criterion, verify writes landed, and distinguish mocks from real verification | Steps 4, 7 + Gate 4 |
 | Release incidents | Pre-release checks for secrets, temp files, debug configs | Step 8 + Gate 5 |
 | The same bug forever | Two failed fixes → root-cause analysis, no guessing | Step 7 |
 | Overconfident AI | Completion report must separate "verified / partially verified / unverified" | Step 8 |
@@ -106,6 +106,8 @@ Not every task needs the full workflow. Enough uses three tracks:
 
 **A user wanted an RSS reader and wrote zero lines of code.**
 The request: "A Windows-local RSS reader: multi-source subscription, keyword filtering, scheduled refresh, one-click install." Instead of coding immediately, Enough searched GitHub first — RSS Guard covered all four requirements natively, was actively maintained, and shipped official Windows installers. Recommendation: adopt it directly. Result: zero code, requirement met the same day. That is "reuse first" in action.
+
+In a second end-to-end case, an “advanced journal” became a native Android, local-only app with system authentication. Enough reassessed its reuse decision when those constraints changed, moved from “extend an existing project” to “borrow the data model and build natively,” then delivered through a vertical slice and verifiable milestones. The case also preserves unresolved migration-test and documentation-write gaps instead of hiding them; see the [Mind Journal end-to-end case](examples/mind-journal-end-to-end.md).
 
 More input → output examples in [examples/](examples/).
 
